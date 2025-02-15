@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useEffect, useState, ReactNode } from 'react';
+import React, { useRef, useEffect, useState, ReactNode } from 'react';
 import { useSprings, animated, SpringValue } from '@react-spring/web';
 
 interface BlurTextProps {
@@ -91,17 +91,18 @@ const BlurText: React.FC<BlurTextProps> = ({
   return (
     <p ref={ref} className={`blur-text ${className} flex flex-wrap`}>
       {springs.map((props, index) => {
-        const element: ReactNode = elements[index] === ' ' ? '\u00A0' : elements[index];
+        const element = elements[index] === ' ' ? '\u00A0' : elements[index];
+        const spaceAfter = animateBy === 'words' && index < elements.length - 1 ? '\u00A0' : '';
         
-        return (
-          <animated.span
-            key={index}
-            style={props}
-            className="inline-block transition-transform will-change-[transform,filter,opacity]"
-          >
-            {element}
-            {animateBy === 'words' && index < elements.length - 1 ? '\u00A0' : ''}
-          </animated.span>
+        // Create a properly typed animated span with correct children typing
+        return React.createElement(
+          animated.span,
+          {
+            key: index,
+            style: props,
+            className: "inline-block transition-transform will-change-[transform,filter,opacity]"
+          },
+          element + spaceAfter
         );
       })}
     </p>
