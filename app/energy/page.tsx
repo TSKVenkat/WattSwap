@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback, useState } from 'react'
-import Link from 'next/link'
 import BlurText from '@/BlurText/BlurText'
 import ScrollVelocity from '@/ScrollVelocity/ScrollVelocity'
 import { Check } from 'lucide-react'
