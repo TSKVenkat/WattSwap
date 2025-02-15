@@ -96,7 +96,7 @@ const BlurText: React.FC<BlurTextProps> = ({
         return (
           <animated.span
             key={index}
-            style={{ ...props }}
+            style={props}
             className="inline-block transition-transform will-change-[transform,filter,opacity]"
           >
             {element}
